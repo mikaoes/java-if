@@ -11,12 +11,12 @@ public class Berechnen
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println("Jahreszahl: ");
-            int jahr = sc.nextInt();
-            if (jahr == 0) {
+            String jahr = sc.next();
+            if (jahr.equals("q") || jahr.equals("exit")) {
                 break;
             }
             
-            rechner(jahr);
+            rechner(Integer.parseInt(jahr));
         }
     }
 

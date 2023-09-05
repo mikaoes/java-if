@@ -5,7 +5,7 @@ import java.util.Scanner;
  * @author (Ihr Name) 
  * @version (eine Versionsnummer oder ein Datum)
  */
-public class Effizienter
+public class Liste
 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
