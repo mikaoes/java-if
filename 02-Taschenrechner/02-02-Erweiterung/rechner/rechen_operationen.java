@@ -51,6 +51,14 @@ public class rechen_operationen
         }
         return ergebnis;
     }
+    public double modulo (double dividend, double divisor)
+    {
+        double ergebnis = dividend;
+        while (ergebnis >= divisor) {
+            ergebnis -= divisor;
+        }
+        return ergebnis;
+    }
     public double qwurzel (double radikant)
     {
         double ergebnis = radikant;
