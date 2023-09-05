@@ -1,2 +1,3 @@
 # java-q1
-Small Java projects to learn the language for CS class in school
+
+Programmieraufgaben in Java aus dem Informatik Leistungskurs (Gymnasium Niedersachsen)
