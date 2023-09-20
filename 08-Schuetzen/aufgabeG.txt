@@ -1,5 +1,5 @@
-tabelle[3][4] = 17;
+tabelle[2][3] = 17;
 
-tabelle[2][1]++;
+tabelle[1][0]++;
 
-tabelle[1][1] -= 1;
+tabelle[0][0] -= 2;
