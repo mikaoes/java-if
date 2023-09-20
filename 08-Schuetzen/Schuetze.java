@@ -54,37 +54,36 @@ public class Schuetze
     }
     public void printTreffer() {
         System.out.print("[");
-        for (int i = 0; i < treffer.length; i++) {
-            System.out.print(treffer[i]);
-            if (i != treffer.length-1) { System.out.print(", "); }
+        for (int i = 0; i < treffer.length-1; i++) {
+            System.out.print(treffer[i] + ", ");
         }
-        System.out.println("]");
+        System.out.println(treffer[treffer.length-1] + "]");
     }
     public void printTabelle() {
-        int maxRowSum = 0;
-        int maxRowSumIndex = 0;
-
+        int maxIndex = 0; // index des Durchgangs mit hoechster Summe
+        
         for (int i = 0; i < tabelle.length; i++) {
-            int rowSum = 0;
+            
+            int dSumme = 0; // gewichtete Summe der Schuesse in Durchgang i
             for (int j = 0; j < tabelle[i].length; j++) {
-                rowSum += tabelle[i][j] * (j+1);
+                dSumme += tabelle[i][j] * (j+1);
             }
-            if (rowSum > maxRowSum) {
-                maxRowSum = rowSum;
-                maxRowSumIndex = i;
+            
+            if (dSumme > summe) { // Maximum Bestimmung
+                summe = dSumme;
+                maxIndex = i;
             }
         }
 
         for (int i = 0; i < tabelle.length; i++) {
             System.out.print("[");
-            for (int j = 0; j < tabelle[i].length; j++) {
-                System.out.print(tabelle[i][j]);
-                if (j != tabelle[i].length-1) { System.out.print(", "); }
+            for (int j = 0; j < tabelle[i].length-1; j++) {
+                System.out.print(tabelle[i][j] + ", ");
             }
-            System.out.print("]");
+            System.out.print(tabelle[i][tabelle[i].length-1] + "]");
 
-            if (i == maxRowSumIndex) {
-                System.out.println(" <--- " + maxRowSum);
+            if (i == maxIndex) {
+                System.out.println(" <--- " + summe);
             }   else {
                 System.out.println();
             }
@@ -96,8 +95,7 @@ public class Schuetze
         Schuetze schuetze1 = new Schuetze();
         Schuetze schuetze2 = new Schuetze();
 
-
-        if (args.length == 0) {
+        if (args.length == 0) { // Wenn keine Durchgangs-Anzahl angegeben
             System.out.println("Summe (Schuetze1): " + schuetze1.summeZwanzigSchuesse());
             schuetze1.printTreffer();
             System.out.println();
@@ -105,7 +103,7 @@ public class Schuetze
             System.out.println("Summe (Schuetze2): " + schuetze2.summeZwanzigSchuesse());
             schuetze2.printTreffer();
             System.out.println();
-        } else {
+        } else { // Wenn mehrere Durchgaenge (Aufgabe h)
             int anzahlDurchG = Integer.parseInt(args[0]);
             System.out.println("Summe (Schuetze1): " + schuetze1.summeZSmehrereDurchG(anzahlDurchG));
             schuetze1.printTabelle();
@@ -115,7 +113,6 @@ public class Schuetze
             schuetze2.printTabelle();
             System.out.println();
         }
-
         
         if (schuetze1.summe > schuetze2.summe) {
             System.out.println("Schuetze1 gewinnt.");
