@@ -33,8 +33,8 @@ public class DemoTabelle
     
     public int min () {
         int min = 100;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; i < 4; i++) {
+        for (int i = 0; i <= 3; i++) {
+            for (int j = 0; j <= 4; j++) {
                 if (t[i][j] < min) {
                     min = t[i][j];
                 }
