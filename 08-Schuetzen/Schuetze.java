@@ -61,7 +61,7 @@ public class Schuetze
     }
     public void printTabelle() {
         int maxIndex = 0; // index des Durchgangs mit hoechster Summe
-        
+        summe = 0;
         for (int i = 0; i < tabelle.length; i++) {
             
             int dSumme = 0; // gewichtete Summe der Schuesse in Durchgang i
@@ -69,10 +69,14 @@ public class Schuetze
                 dSumme += tabelle[i][j] * (j+1);
             }
             
+            System.out.println(dSumme);
+            
             if (dSumme > summe) { // Maximum Bestimmung
+                System.out.println("Neue Summe" + (dSumme-summe));
                 summe = dSumme;
                 maxIndex = i;
             }
+            System.out.println("MI:" + maxIndex);
         }
 
         for (int i = 0; i < tabelle.length; i++) {
