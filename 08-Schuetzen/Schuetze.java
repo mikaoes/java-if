@@ -69,14 +69,10 @@ public class Schuetze
                 dSumme += tabelle[i][j] * (j+1);
             }
             
-            System.out.println(dSumme);
-            
             if (dSumme > summe) { // Maximum Bestimmung
-                System.out.println("Neue Summe" + (dSumme-summe));
                 summe = dSumme;
                 maxIndex = i;
             }
-            System.out.println("MI:" + maxIndex);
         }
 
         for (int i = 0; i < tabelle.length; i++) {
