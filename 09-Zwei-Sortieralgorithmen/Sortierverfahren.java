@@ -103,32 +103,11 @@ public class Sortierverfahren
         }
 
     }
-    public static void sortAusAB() {
-        int[] a = {4, 2, 5, 1, 3};
-
-        int i;
-        int hilf;
-        int laenge = a.length;
-
-        for (int n = 0; n < laenge - 1; n++) { // ! falscher Vergleichsoperator
-            for (i = 1; i < laenge - 1; i++) { // ! falscher Vergleichsoperator
-                if (a[i] > a[i + 1]) {
-                    hilf = a[i];
-                    a[i] = a[i + 1];
-                    a[i + 1] = hilf;
-                }
-            }
-        }
-
-        for (int k = 0; k < a.length; k++) {
-            System.out.print(a[k] + "; ");
-        }
-    }
     public static void kleinsterNachVorne() {
         int[] a = {4, 2, 5, 1, 3};
 
         for (int i = 0; i < a.length - 1; i++) {
-            // Suche das kleinste Element ab i
+            // Suche index des kleinsten Elements ab i
             int kleinster = i;
             for (int j = i + 1; j < a.length; j++) {
                 if (a[j] < a[kleinster]) {
