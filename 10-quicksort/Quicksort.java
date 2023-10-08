@@ -16,10 +16,10 @@ public class Quicksort {
 
             while (i <= j) {       // solange linke und rechte Grenze sich nicht überschneiden
                 while (i <= to && a[i] < pivot) { // solange linke Grenze nicht überschritten und Element kleiner als Pivot
-                    i++;
+                    i++;           // linke Grenze eins weiter
                 }
                 while (j >= from && a[j] > pivot) { // solange rechte Grenze nicht überschritten und Element größer als Pivot
-                    j--;
+                    j--;          // rechte Grenze eins zurück
                 }
                 if (i <= j) {      // wenn linke Grenze kleiner gleich rechter Grenze
                     tausche(a, i, j); // tausche Elemente
