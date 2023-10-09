@@ -1,6 +1,7 @@
 public class Quicksort {
     public static void main(String[] args) {
         int[] array = {5, 3, 7, 1, 9, 2, 4, 6, 8, 0};
+
         int[] erg = quicksort(array, 0, array.length - 1);
         for (int i = 0; i < erg.length; i++) {
             System.out.print(erg[i] + " ");
@@ -9,7 +10,7 @@ public class Quicksort {
 
     public static int[] quicksort(int[] a, int from, int to) {
 
-        if (from < to) {            // Abbruchbedingung für Rekursion
+        if (from < to) {            // Abbruchbedingung
             int pivot = a[from];    // erstes Element als Pivot
             int i = from + 1;       // linke Grenze
             int j = to;             // rechte Grenze
