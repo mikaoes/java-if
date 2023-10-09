@@ -1,6 +1,12 @@
+import java.util.concurrent.ThreadLocalRandom;
 public class Quicksort {
     public static void main(String[] args) {
-        int[] array = {5, 3, 7, 1, 9, 2, 4, 6, 8, 0};
+        // int[] array = {5, 3, 7, 1, 9, 2, 4, 6, 8, 0};
+        int laenge = 25;
+        int[] array = new int[laenge];
+        for (int i = 0; i < laenge; i++) {
+            array[i] = ThreadLocalRandom.current().nextInt(0, 100);
+        }
 
         int[] erg = quicksort(array, 0, array.length - 1);
         for (int i = 0; i < erg.length; i++) {
