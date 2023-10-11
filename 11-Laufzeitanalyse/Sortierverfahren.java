@@ -20,8 +20,8 @@ public class Sortierverfahren
 {
     public static void main(String[] args)
     {
-        long[][][] zeiten = new long[3][4][5]; // modus (zufall, sort, antisort)
-        String[][] arrays = new String[3][5];
+        long[][][] zeiten = new long[3][4][5]; // modus (zufall, sort, antisort), algo (ins, bub, max, quick), durchgang (ergo laenge)
+        String[][] arrays = new String[3][5]; // modus (zufall, sort, antisort), durchgan (ergo laenge)
 
         for (int i = 0; i < 5; i++) {
             arrays[0][i] = String.join(",", zArray((i+1)*10, 0, 100));
@@ -218,20 +218,19 @@ public class Sortierverfahren
         if (start == -1) {
             start = len-1;
         }
-        String[] r = new String[len];
+        String[] r = new String[len]; 
         for (int i = start; i < len; i++) {
             r[i] = Integer.toString(start-i);
         }
         return r;
     }
     public static int[] stringToIntArray(String input) {
-        int[] r = new int[(input.length()/2)];
+        int[] r = new int[((input.length()-1)/2)+1];
         for (int i = 0; i < input.length(); i++) {
             String v = Character.toString(input.charAt(i));
-            if (v.equals(",")) {
-                continue;
+            if (i%2 == 1) {
+                r[i/2] = Integer.parseInt(v);
             }
-            r[i/2] = Integer.parseInt(v);
         }
         return r;
     }
