@@ -27,10 +27,10 @@ public class Sortierverfahren
             arrays[0][i] = String.join(",", zArray((i+1)*10, 0, 100));
         }
         for (int i = 0; i < 5; i++) {
-            arrays[1][i] = String.join(",", sArray((i+1)*10, 0, 100));
+            arrays[1][i] = String.join(",", sArray((i+1)*10, 0));
         }
         for (int i = 0; i < 5; i++) {
-            arrays[2][i] = String.join(",", srArray((i+1)*10, 0, 100));
+            arrays[2][i] = String.join(",", srArray((i+1)*10, -1));
         }
 
         for (int modus = 0; modus < 3; modus++) {
@@ -198,7 +198,7 @@ public class Sortierverfahren
 
     }
 
-    public static String[] zArray(int len, int uG, int oG) {
+    public static String[] zArray(int len, int uG, int oG) { // Zufallsarray
         String[] r = new String[len];
         for (int i = 0; i < len; i++) {
             r[i] = Integer.toString(ThreadLocalRandom.current().nextInt(uG, oG));
@@ -206,18 +206,21 @@ public class Sortierverfahren
         return r;
     }
 
-    public static String[] sArray(int len, int uG, int oG) {
+    public static String[] sArray(int len, int start) { // Sortiertes Array
         String[] r = new String[len];
-        for (int i = uG; i < oG; i++) {
+        for (int i = start; i < len; i++) {
             r[i] = Integer.toString(i);
         }
         return r;
     }
 
-    public static String[] srArray(int len, int uG, int oG) {
+    public static String[] srArray(int len, int start) { // rückwärts sortiertes Array
+        if (start == -1) {
+            start = len-1;
+        }
         String[] r = new String[len];
-        for (int i = uG; i < oG; i++) {
-            r[i] = Integer.toString(oG-i);
+        for (int i = start; i < len; i++) {
+            r[i] = Integer.toString(start-i);
         }
         return r;
     }
