@@ -24,38 +24,45 @@ public class Sortierverfahren
         String[][] arrays = new String[3][5]; // modus (zufall, sort, antisort), durchgan (ergo laenge)
 
         for (int i = 0; i < 5; i++) {
-            arrays[0][i] = String.join(",", zArray((i+1)*10, 0, 100));
+            arrays[0][i] = String.join(",", zArray((i+1)*10000, 0, 100));
         }
         for (int i = 0; i < 5; i++) {
-            arrays[1][i] = String.join(",", sArray((i+1)*10, 0));
+            arrays[1][i] = String.join(",", sArray((i+1)*10000, 0));
         }
         for (int i = 0; i < 5; i++) {
-            arrays[2][i] = String.join(",", srArray((i+1)*10, -1));
+            arrays[2][i] = String.join(",", srArray((i+1)*10000));
         }
 
         for (int modus = 0; modus < 3; modus++) {
             for (int algo = 0; algo < 4; algo++) {
                 for (int i_ar = 0; i_ar < 5; i_ar++) {
+                    int[] a = stringToIntArray(arrays[modus][i_ar]);
                     switch(algo) {
                         case 0:
-                            int[] a = stringToIntArray(arrays[modus][i_ar]);
                             long startzeit = System.currentTimeMillis();
                             insertionSort(a);
+                            zeiten[modus][algo][i_ar] = (System.currentTimeMillis() - startzeit);
+                        case 1:
+                            startzeit = System.currentTimeMillis();
+                            bubbleSort(a);
+                            zeiten[modus][algo][i_ar] = (System.currentTimeMillis() - startzeit);
+                        case 2:
+                            startzeit = System.currentTimeMillis();
+                            maxSort(a);
+                            zeiten[modus][algo][i_ar] = (System.currentTimeMillis() - startzeit);
+                        case 3:
+                            startzeit = System.currentTimeMillis();
+                            quickSort(a, 0, a.length-1);
                             zeiten[modus][algo][i_ar] = (System.currentTimeMillis() - startzeit);
                     }
                 }
             }
         }
+        printTimes(zeiten);
     }
 
     public static void insertionSort(int[] a ) // InsertionSort
     {
-        // Ausgabe des unsortierten Original-Arrays
-        for (int k = 0; k < a.length; k++) 
-        {
-            System.out.print(a[k] + "; ");
-        }
-        System.out.println();
         // Beginn der Sortierung
         for (int i = 1; i < a.length; i++) 
         {
@@ -67,25 +74,11 @@ public class Sortierverfahren
                 j--;
             }
             a[j] = aktuellesElement;
-            // Ausgabe nach Ende jedes Schleifendurchlaufs
-            for (int k = 0; k < a.length; k++) 
-            {
-                System.out.print(a[k] + "; ");
-            }
-            System.out.println();
-
         }
     }
 
     public static void bubbleSort(int[] a ) // BubbleSort 
     {
-        // Ausgabe des unsortierten Original-Arrays
-        for (int k = 0; k < a.length; k++) 
-        {
-            System.out.print(a[k] + "; ");
-        }
-        System.out.println();    
-
         int hilf;
         int laenge = a.length;
         for (int j = 0; j < laenge - 1; j++) {
@@ -98,12 +91,6 @@ public class Sortierverfahren
                     a[i+1] = hilf;
                 }
             }
-
-            // Ausgabe nach Ende jedes Schleifendurchlaufs
-            for (int k = 0; k < a.length; k++) {
-                System.out.print(a[k] + "; ");
-            }                
-            System.out.println();
         }
 
     }
@@ -117,13 +104,6 @@ public class Sortierverfahren
         int minPosition;
         do 
         {
-            // Array jeweils nach dem Start bzw. einem Durchlauf ausgeben
-            for (int k = 0; k <= maxIndex; k++) 
-            {
-                System.out.print(a[k] + "; ");
-            }                
-            System.out.println();
-
             minPosition = aktIndex;
             for (int i = (aktIndex + 1); i <= maxIndex; i ++)
             {
@@ -148,12 +128,6 @@ public class Sortierverfahren
             int pivot = uG;
             int i = uG+1;
             int j = oG;
-            // Ausgabe des jeweils aktuellen Arrays 
-            for (int k = 0; k < a.length; k++) 
-            {
-                System.out.print(a[k] + "; ");
-            }                
-            System.out.println(" -- uG/oG " + uG + " / " + oG);
 
             // Zerlegung in zwei Teilmengen
             while(i < j)
@@ -169,12 +143,6 @@ public class Sortierverfahren
                 int hilf=a[i];
                 a[i] = a[j];
                 a[j] = hilf;
-                // Ausgabe des jeweils aktuellen Arrays 
-                for (int k = 0; k < a.length; k++) 
-                {
-                    System.out.print(a[k] + "; ");
-                }                
-                System.out.println(" -- i/j " + i + " / " + j);
             }
             // Pivot an die richtige Position setzen
             if(a[i] >= a[pivot])
@@ -188,12 +156,6 @@ public class Sortierverfahren
             quickSort(a, uG, i-1);
 
             quickSort(a, i+1, oG);
-            // Ausgabe des Arrays nach dem rekursiven Aufruf
-            for (int k = 0; k < a.length; k++) 
-            {
-                System.out.print(a[k] + "; ");
-            }                
-            System.out.println(" Ende Rekursion: uG: " + uG + " oG: " + oG);
         }
 
     }
@@ -214,13 +176,10 @@ public class Sortierverfahren
         return r;
     }
 
-    public static String[] srArray(int len, int start) { // rückwärts sortiertes Array
-        if (start == -1) {
-            start = len-1;
-        }
-        String[] r = new String[len]; 
-        for (int i = start; i < len; i++) {
-            r[i] = Integer.toString(start-i);
+    public static String[] srArray(int len) { // rückwärts sortiertes Array
+        String[] r = new String[len];
+        for (int i = len-1; i >= 0; i--) {
+            r[i] = Integer.toString(len-i);
         }
         return r;
     }
@@ -228,11 +187,23 @@ public class Sortierverfahren
         int[] r = new int[((input.length()-1)/2)+1];
         for (int i = 0; i < input.length(); i++) {
             String v = Character.toString(input.charAt(i));
-            if (i%2 == 1) {
+            if (!v.equals(",")) {
                 r[i/2] = Integer.parseInt(v);
             }
         }
         return r;
+    }
+
+    public static void printTimes(long[][][] a) {
+        String[] modi = {"Zufall", "Sortiert", "Antisortiert"};
+        String[] algos = {"InsertionSort", "BubbleSort", "MaxSort", "QuickSort"};
+        for (int modus = 0; modus < 3; modus++) {
+            for (int algo = 0; algo < 4; algo++) {
+                for (int i_ar = 0; i_ar < 5; i_ar++) {
+                    System.out.println(modi[modus] + " " + algos[algo] + " " + (i_ar+1)*10 + " " + a[modus][algo][i_ar]);
+                }
+            }
+        }
     }
 }
 
