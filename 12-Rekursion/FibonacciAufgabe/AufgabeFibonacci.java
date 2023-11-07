@@ -49,15 +49,15 @@ public class AufgabeFibonacci
         }
     }
     public static int itFib(int n) {
-        int[] zahlen = new int[n];
-        for (int i = 1; i <= n; i++) {
-            if (i <= 2) {
-                zahlen[i-1] = 1;
+        int[] zahlen = new int[n]; // Array der Länge n, um die Zahlen der Folge zu speichern
+        for (int i = 1; i <= n; i++) { // i ist der Index der Zahl in der Folge
+            if (i <= 2) { // die ersten beiden Zahlen sind 1 - ähnlich der Abbruchbedingung bei der rekursiven Lösung
+                zahlen[i-1] = 1; // i-1, da der Index bei 0 beginnt
             } else {
-                zahlen[i-1] = zahlen[i-2] + zahlen[i-3];
+                zahlen[i-1] = zahlen[i-2] + zahlen[i-3]; // die Zahl ist die Summe der beiden vorherigen Zahlen, i-1 da der Index bei 0 beginnt
             }
             System.out.println(i + ": " + zahlen[i-1]);
         }
-        return zahlen[n-1];
+        return zahlen[n-1]; // Rückgabe der letzten Zahl, wie bei der rekursiven Lösung
     }
 }
