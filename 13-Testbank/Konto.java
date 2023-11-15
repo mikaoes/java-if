@@ -6,5 +6,6 @@ public class Konto
     private char typ;
 
     public Konto() {
+        System.out.println("Konto() wurde abgerufen");
     }
 }
