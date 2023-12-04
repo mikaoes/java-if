@@ -1,33 +1,36 @@
-
-/**
- * Beschreiben Sie hier die Klasse Kunde.
- * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
- */
 public class Kunde
 {
-    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-    private int x;
+    private int kundenNr;
+    private String passwort;
 
-    /**
-     * Konstruktor für Objekte der Klasse Kunde
-     */
-    public Kunde()
-    {
-        // Instanzvariable initialisieren
-        x = 0;
+    private String vorname;
+    private String nachname;
+    private String geburtsD;
+
+    private int[] konten = new int[10];
+
+    public Kunde(int pKundenNr, String pPasswort, String pVorname, String pNachname, String pGeburtsD, int[] pKonten) {
+        kundenNr = pKundenNr;
+        passwort = pPasswort;
+        vorname = pVorname;
+        nachname = pNachname;
+        geburtsD = pGeburtsD;
+        konten = pKonten;
     }
 
-    /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
-     * 
-     * @param  y    ein Beispielparameter für eine Methode
-     * @return        die Summe aus x und y
-     */
-    public int beispielMethode(int y)
-    {
-        // tragen Sie hier den Code ein
-        return x + y;
+    public int getKundenNr() {
+        return kundenNr;
+    }
+
+    public int[] getKonten() {
+        return konten;
+    }
+
+    public Boolean login(String pPasswort) {
+        if (passwort.equals(pPasswort)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

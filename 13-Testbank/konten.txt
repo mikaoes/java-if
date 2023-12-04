@@ -1,0 +1,2 @@
+52002100;Girokonto von Mika;1000;g;1234;
+52002101;Zweitkonto von Mika;2000;g;1234;
