@@ -183,8 +183,65 @@ public class Bank
             if (eingabe.equals("clear")) {
                clear();
             }
+
+            /* ADMIN METHODEN */
+            if (eingabe.equals("kunden") && admin == true) {
+                for (int i = 0; i < 100; i++) {
+                    if (kunden[i] != null) {
+                        System.out.println("Kunde " + (i+1) + ": " + kunden[i].getKundenNr());
+                    }
+                }
+            }
+            if (eingabe.equals("konten") && admin == true) {
+                for (int i = 0; i < 1000; i++) {
+                    if (konten[i] != null) {
+                        System.out.println("Konto " + (i+1) + ": " + konten[i].getKontoNr());
+                    }
+                }
+            }
+            if (eingabe.equals("neuer kunde") && admin == true) {
+                pprint("Vorname: ");
+                String vorname = sc.nextLine();
+                pprint("Nachname: ");
+                String nachname = sc.nextLine();
+                pprint("Geburtsdatum: ");
+                String geburtsdatum = sc.nextLine();
+                pprint("Passwort: ");
+                String passwort = sc.nextLine();
+                int[] kunden_konten = new int[10];
+                kunden_konten[0] = neuesKonto(sc);
+                kunden[0] = new Kunde(1, passwort, vorname, nachname, geburtsdatum, kunden_konten);
+            }
+
+            if (eingabe.equals("neues konto") && admin == true) {
+                neuesKonto(sc);
+            }
+
+            if (eingabe.equals("speichern") && admin == true) {
+                kundenUndKontenSpeichern();
+            }
         }
         sc.close();
+    }
+
+    private static int neuesKonto(Scanner sc) {
+        pprint("Name: ");
+        String name = sc.nextLine();
+        pprint("Kontostand: ");
+        long kontostand = sc.nextLong();
+        pprint("Typ: ");
+        char typ = sc.next().charAt(0);
+        pprint("PIN: ");
+        String pin = sc.nextLine();
+        int freierPlatz = 0;
+        for (int i = 0; i < 1000; i++) {
+            if (konten[i] == null) {
+                freierPlatz = i;
+                break;
+            }
+        }
+        konten[freierPlatz] = new Konto(freierPlatz, name, kontostand, typ, pin);
+        return freierPlatz;
     }
 
     private static void kundenErzeugen() {
@@ -239,6 +296,54 @@ public class Bank
             konten[i] = new Konto(Integer.parseInt(lineSplit[0]), lineSplit[1], Long.parseLong(lineSplit[2]), lineSplit[3].charAt(0), lineSplit[4]);
             i++;
         }
+    }
+
+    private static boolean kundenUndKontenSpeichern() {
+        /* Speichere die aktualisierten Kunden und Konten in den Dateien. Gegenstück zu kontenErzeugen und kundenErzeugen */
+
+        String kundenText = "";
+        String kontenText = "";
+
+        for (int i = 0; i < 100; i++) {
+            if (kunden[i] != null) {
+                kundenText += kunden[i].getKundenNr() + ";" + kunden[i].getPasswort(admin_passwort) + ";" + kunden[i].getVorname() + ";" + kunden[i].getNachname() + ";" + kunden[i].getGeburtsdatum() + ";";
+                int[] kunden_konten = kunden[i].getKonten();
+                for (int j = 0; j < kunden_konten.length; j++) {
+                    if (kunden_konten[j] > 0) {
+                        kundenText += kunden_konten[j] + ",";
+                    }
+                }
+                kundenText += "\n";
+            }
+        }
+
+        for (int i = 0; i < 1000; i++) {
+            if (konten[i] != null) {
+                kontenText += konten[i].getKontoNr() + ";" + konten[i].getName() + ";" + konten[i].getKontoStand() + ";" + konten[i].getTyp() + ";" + konten[i].getPin(admin_passwort) + "\n";
+            }
+        }
+
+        try {
+            File file = new File("kunden.txt");
+            java.io.FileWriter fw = new java.io.FileWriter(file);
+            fw.write(kundenText);
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Fehler beim Speichern der Kundendatei");
+            return false;
+        }
+
+        try {
+            File file = new File("konten.txt");
+            java.io.FileWriter fw = new java.io.FileWriter(file);
+            fw.write(kontenText);
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Fehler beim Speichern der Kontendatei");
+            return false;
+        }
+
+        return false;
     }
 
     private static void chPathAndPrint(String pPath) {
