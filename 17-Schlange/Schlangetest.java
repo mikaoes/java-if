@@ -41,7 +41,7 @@ public class Schlangetest
             System.out.println("Geben Sie 5 ein für Programm mit Schlange beenden.");
             System.out.println("Geben Sie 6 ein für Ausgabe ohne Löschen.");
             System.out.println("Geben Sie 7 ein für Ausgabe nach Index.");
-            System.out.println("Geben Sie 8 ein für das Zufallsprogramm.")
+            System.out.println("Geben Sie 8 ein für das Zufallsprogramm.");
             System.out.println();
 
             z = console.nextInt();
@@ -123,7 +123,7 @@ public class Schlangetest
         int z;
 
         for (int i = 0; i < 30; i++) {
-            z = ThreadLocalRandom.nextInt();
+            z = ThreadLocalRandom.concurrent().nextInt();
             switch (z%3) {
                 case 0:
                     schlange1.enqueue(z);
