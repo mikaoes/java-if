@@ -10,7 +10,7 @@ public class Knoten<T>
 {
     private T inhalt; // "Fach" für den Inhalt  
 
-    private Knoten<T> naechster; // "Extrafach" für den Verweis auf 1 anderen Knoten
+    private Knoten<T> naechster = null; // "Extrafach" für den Verweis auf 1 anderen Knoten
 
     public Knoten(T neuesElement) // Konstruktor
     {

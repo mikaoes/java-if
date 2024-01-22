@@ -11,6 +11,7 @@ public class Wartezimmer
 {   
     Queue<Patient> schlange = new Queue<Patient>();
     int plaetze;
+    int belegt = 0;
 
     public Wartezimmer(int pPlaetze) {
         plaetze = pPlaetze;
@@ -19,17 +20,13 @@ public class Wartezimmer
     public static void main (String[] args) {
         Wartezimmer wz = new Wartezimmer(12);
 
-        /* for (int i = 0; i < wz.plaetze; i++) {
-            String name = "P" + Integer.toString(ThreadLocalRandom.current().nextInt(100, 1000));
-            wz.enqueue(new Patient(name));
-        } */
+        System.out.println("Gestartet.");
 
         while (true) {
             wz.tick();
-            wz.drucken();
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
               } catch (InterruptedException e) {
                 System.out.println("Fehler");
                 Thread.currentThread().interrupt();
@@ -38,25 +35,59 @@ public class Wartezimmer
     }
 
     public void tick() {
+        notfallsuche();
+
         Patient pat = null;
         Patient dePat = null;
 
-        if (ThreadLocalRandom.current().nextInt(0, 11) == 10) {
+        if (ThreadLocalRandom.current().nextInt(5, 11) == 10 && belegt <= plaetze) {
             String name = "P" + Integer.toString(ThreadLocalRandom.current().nextInt(100, 1000));
-            pat = new Patient(name);
+            if (ThreadLocalRandom.current().nextInt(0, 3) == 1) {
+                pat = new Notfallpatient(name);
+            } else {
+                pat = new Patient(name);
+            }
+            belegt++;
             this.enqueue(pat);
         }
+        if (pat != null) {
+            drucken();
+            System.out.println(pat.getName() + " hinzugefuegt.");
+            return;
+        }
 
-        if (ThreadLocalRandom.current().nextInt(0, 11) == 10 && !schlange.isEmpty()) {
+
+        if (ThreadLocalRandom.current().nextInt(5, 11) == 10 && !schlange.isEmpty()) {
             pat = null;
             dePat = this.dequeue();
+            belegt--;
+        }
+        
+        if (dePat != null) {
+            drucken();
+            System.out.println(dePat.getName() + " entfernt.");
+            return;
+        }
+    }
+
+    public void notfallsuche() {
+        if (schlange.isEmpty()) {
+            return;
         }
 
-        if (pat != null) {
-            System.out.println(pat.name + " hinzugefuegt.");
-        }
-        if (dePat != null) {
-            System.out.println(dePat.name + " entfernt.");
+        Knoten<Patient> aE = schlange.getHead();
+        while (aE != null) {
+            Patient aP = aE.holeInhalt();
+            if (aP.nP) {
+                try {
+                    System.out.println(aP.getName() + " ist ein Notfallpatient! Er hat ein " + aP.getBsProblem() + " Problem.");
+                } catch(Exception e) {
+                    System.out.println("Fehler");
+                }
+                    
+            }
+            aE = aE.holeNachbarKnoten();
+            if (aE == null) {return;}
         }
     }
 
@@ -74,9 +105,6 @@ public class Wartezimmer
         int laenge = 0;
 
         String border = "############";
-        System.out.println(border);
-        System.out.println(schlange.isEmpty());
-        System.out.println(schlange.head());
 
         while(!schlange.isEmpty())  {
             druckerSchlange.enqueue(schlange.dequeue()); // von schlange in druckerSchlange übertragen
@@ -88,7 +116,7 @@ public class Wartezimmer
 
         for (int i = 0; i < laenge; i++) {
             Patient aP = druckerSchlange.dequeue();
-            System.out.print("#   " + aP.name + "   #  ");
+            System.out.print("#   " + aP.getName() + "   #  ");
             schlange.enqueue(aP);
         }
         System.out.println();
