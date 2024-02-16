@@ -66,10 +66,6 @@ public class Vokabeltrainer
                     aE = vocab.getItem(ThreadLocalRandom.current().nextInt(0, vocab.getLength()-1));
                     System.out.println(aE.getDeutsch() + " - " + aE.getFS());
                     break;
-                case 5:
-                    for (int k=0; k<vocab.getLength(); k++) {
-                        // unfertig
-                    }
             }
         }
     }
