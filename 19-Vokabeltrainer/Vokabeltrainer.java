@@ -10,80 +10,148 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Vokabeltrainer
-{
-    private static DynArray<Vokabel> vocab = new DynArray<Vokabel>();
+public class Vokabeltrainer {
+    private static DynArray<Vokabel> vocab = new DynArray<Vokabel>(); // aktuelles Set
+    private static DynArray<Vokabel> neu = new DynArray<Vokabel>(); // noch nicht gelernt
+    private static DynArray<Vokabel> gelernt = new DynArray<Vokabel>(); // einmal richtig
+    private static DynArray<Vokabel> perfekt = new DynArray<Vokabel>(); // zweimal richtig
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
         {
             System.out.println("Wilkommen zum Vokabeltrainer!");
             laden();
             clear();
+
+            vocab = neu;
         }
 
         while (true) {
             String deutsch;
             String fs;
             Vokabel aE;
+            int l;
 
             switch (console.nextInt()) {
+                case -10:
+                    alleAusgeben();
+                    break;
                 case -1:
                     clear();
                     break;
+
                 case 0: // ausgeben
-                    ausgeben();
+                    ausgeben(vocab);
                     break;
-                case 1: // hinzufügen
+
+                case 1: // vocabelset aendern (z.B. neu -> vocab)
+                    System.out.println("Welches Set soll geladen werden?");
+                    System.out.println("1: neu");
+                    System.out.println("2: gelernt");
+                    System.out.println("3: perfekt");
+                    int set = console.nextInt();
+                    switch (set) {
+                        case 1:
+                            vocab = neu;
+                            break;
+                        case 2:
+                            vocab = gelernt;
+                            break;
+                        case 3:
+                            vocab = perfekt;
+                            break;
+                    }
+                    break;
+
+                case 2: // hinzufügen
                     System.out.println("Deutsches Wort: ");
                     deutsch = console.next();
                     System.out.println("Fremdsprachen Wort: ");
                     fs = console.next();
                     vocab.append(new Vokabel(deutsch, fs));
                     break;
-                case 2: // eins löschen
+                case 3: // eins löschen
                     System.out.println("zu loeschende Vokabel: ");
                     String zuLoeV = console.next();
-                    int l = vocab.getLength();
+                    l = vocab.getLength();
                     if (zuLoeV.equals("2")) {
-                        for (int i = 0; i<l; i++) {
+                        for (int i = 0; i < l; i++) {
                             vocab.delete(0);
                         }
                         break;
                     }
-                    for (int j = 0; j<vocab.getLength(); j++) {
+                    for (int j = 0; j < vocab.getLength(); j++) {
                         aE = vocab.getItem(j);
                         if (aE.getDeutsch().equals(zuLoeV)) {
                             vocab.delete(j);
                         }
                     }
                     break;
-                case 3:
+                case 4: // Anzahl der Vokabeln
                     System.out.println(vocab.getLength() + " Vokabeln in der Liste");
                     break;
-                case 4:
-                    aE = vocab.getItem(ThreadLocalRandom.current().nextInt(0, vocab.getLength()-1));
+                case 5: // zufällige Vokabel
+                    aE = vocab.getItem(ThreadLocalRandom.current().nextInt(0, vocab.getLength() - 1));
                     System.out.println(aE.getDeutsch() + " - " + aE.getFS());
                     break;
-                case 5:
-                    for (int k=0; k<vocab.getLength(); k++) {
-                        // unfertig
+                case 6: // lernen
+                    while (vocab.getLength() > 0) {
+                        int r = ThreadLocalRandom.current().nextInt(0, vocab.getLength());
+                        aE = vocab.getItem(r);
+                        System.out.println(aE.getFS() + " : ");
+                        String antwort = console.nextLine();
+                        if (antwort.equals("/exit")) {
+                            break;
+                        }
+                        if (antwort.equalsIgnoreCase(aE.getDeutsch())) {
+                            System.out.println("Richtig!");
+                            if (vocab == neu) {
+                                gelernt.append(aE);
+                                neu.delete(r);
+                            } else if (vocab == gelernt) {
+                                perfekt.append(aE);
+                                gelernt.delete(r);
+                            } else if (vocab == perfekt) {
+                                perfekt.delete(r);
+                            }
+                        } else {
+                            System.out.println("Falsch! Die richtige Antwort ist: " + aE.getDeutsch());
+                            continue;
+                        }
+
                     }
+                    break;
             }
         }
     }
 
-    public static void ausgeben() {
+    public static void ausgeben(DynArray<Vokabel> pVokabelset) {
         Vokabel aE;
-        for (int i=0; i < vocab.getLength(); i++) {
-            aE = vocab.getItem(i);
-            System.out.println(aE.getDeutsch() + " - " + aE.getFS());
+        if (pVokabelset.getLength() == 0) {
+            System.out.println("Keine Vokabeln in der Liste");
+            return;
+        }
+        for (int i = 0; i < vocab.getLength(); i++) {
+            try {
+                aE = pVokabelset.getItem(i);
+                System.out.println(aE.getDeutsch() + " - " + aE.getFS());
+            } catch (Exception e) {
+                ;
+            }
         }
     }
 
+    public static void alleAusgeben() {
+        System.out.println("Neu: ");
+        ausgeben(neu);
+        System.out.println("\nGelernt: ");
+        ausgeben(gelernt);
+        System.out.println("\nPerfekt: ");
+        ausgeben(perfekt);
+    }
+
     public static void clear() {
-        for (int i =0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.println();
         }
     }
@@ -104,7 +172,7 @@ public class Vokabeltrainer
         while (fSc.hasNextLine()) {
             line = fSc.nextLine();
             lineSplit = line.split(", ");
-            vocab.append(new Vokabel(lineSplit[0], lineSplit[1]));
+            neu.append(new Vokabel(lineSplit[0], lineSplit[1]));
         }
     }
 }
