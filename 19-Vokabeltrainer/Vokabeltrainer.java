@@ -22,6 +22,18 @@ public class Vokabeltrainer {
             System.out.println("Wilkommen zum Vokabeltrainer!");
             laden();
             clear();
+            System.out.println("""
+                    Befehle:
+                    -10: alle Vokabeln ausgeben
+                    -1: Konsole leeren
+                    0: Vokabelset ausgeben
+                    1: Vokabelset aendern
+                    2: Vokabel hinzufuegen
+                    3: Vokabel loeschen
+                    4: Anzahl der Vokabeln
+                    5: Zufaellige Vokabel ausgeben
+                    6: Lernen (aktuelles Set)
+                    """);
 
             vocab = neu;
         }
@@ -33,10 +45,10 @@ public class Vokabeltrainer {
             int l;
 
             switch (console.nextInt()) {
-                case -10:
+                case -10: // alle ausgeben
                     alleAusgeben();
                     break;
-                case -1:
+                case -1: // konsole leeren
                     clear();
                     break;
 
