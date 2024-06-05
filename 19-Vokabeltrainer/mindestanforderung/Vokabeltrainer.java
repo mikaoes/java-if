@@ -1,3 +1,5 @@
+package mindestanforderung;
+
 
 /**
  * Beschreiben Sie hier die Klasse Vokabeltrainer.
