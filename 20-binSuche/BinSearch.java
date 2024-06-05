@@ -42,8 +42,13 @@ public class BinSearch {
 
     public static void main(String args[]) {
         Scanner console = new Scanner(System.in);
-        int[] liste1 = { 1, 2, 8, 10, 13, 17, 22, 24, 31, 40, 55, 69, 71, 81, 91, 100 };
-        System.out.println(java.util.Arrays.toString(liste1));
+        // int[] liste1 = { 1, 2, 8, 10, 13, 17, 22, 24, 31, 40, 55, 69, 71, 81, 91, 100 };
+        
+        int [] liste1 = new int[100000];
+        for (int i = 0; i < 100000; i++) {
+            liste1[i] = i+1;
+        }
+        // System.out.println(java.util.Arrays.toString(liste1));
 
         System.out.print("Welche Zahl soll gesucht werden? ");
         int a = console.nextInt();
@@ -55,7 +60,10 @@ public class BinSearch {
         if (eingabe.equals("l")) {
             Ausgabe = lin_search(liste1, a);
         } else if (eingabe.equals("b")) {
+            long startZeit = System.currentTimeMillis();
             Ausgabe = binary_search(liste1, a);
+            long endZeit = System.currentTimeMillis();
+            System.out.println(" Durchlaufzeit der Schleife: "+(endZeit - startZeit) + " Millisekunden.");
         } else {
             System.out.println("Falsche Eingabe");
         }
