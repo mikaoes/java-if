@@ -1,3 +1,4 @@
+import java.lang.Math;
 /**
  * Beschreiben Sie hier die Klasse Konverter.
  *
@@ -6,7 +7,7 @@
  */
 public class Konverter {
 
-    public static String conv(int zahl) {
+    public static String to_bin(int zahl) {
         String ergebnis = "";
         while (zahl > 0) {
             ergebnis = (zahl % 2) + ergebnis;
@@ -15,10 +16,21 @@ public class Konverter {
         return ergebnis;
     }
 
-    public static void main(String args[]) {
-        for (int i : new int[] { 0, 10, 25, 100, 256, 738 }) {
-            System.out.println(i + " -> " + conv(i));
+    public static int to_dec(String zahl) {
+        int ergebnis = 0;
+
+        for (int i=0; i<zahl.length(); i++) {
+            ergebnis +=  Character.getNumericValue(zahl.charAt(i)) * java.lang.Math.pow(2, (zahl.length()-(i+1)));
         }
+        return ergebnis;
+    }
+
+    public static void main (String args[]) {
+        for (int i : new int[] { 0, 10, 25, 100, 256, 738 }) {
+            System.out.println(i + " -> " + to_bin(i));
+        }
+
+        System.out.println("110 -> " + to_dec("110"));
     }
 
     /*
