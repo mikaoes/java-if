@@ -1,0 +1,6 @@
+Ketten.java:81: Fehler: Symbol nicht gefunden
+    return String.parseInt(1);
+                 ^
+  Symbol: Methode parseInt(int)
+  Ort: Klasse String
+1 Fehler
