@@ -1,4 +1,4 @@
-object FGUIForm: TFGUIForm
+object FGUIForm_1: TFGUIForm
   Left = 1067
   Top = 110
   BorderIcons = [biSystemMenu]
@@ -22,7 +22,7 @@ object FGUIForm: TFGUIForm
   OnMouseActivate = FormMouseActivate
   OnResize = FormResize
   FrameType = 5
-  Modified = True
+  Modified = False
   Resizable = True
   Undecorated = False
   Background = clBtnFace

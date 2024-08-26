@@ -232,7 +232,7 @@ public class taschenrechnerW extends JFrame {
     // TODO add your code here
     int zahl1 = Integer.parseInt(jLinks.getText());
     int zahl2 = Integer.parseInt(jRechts.getText());
-    int ergebnis = 0;
+    long ergebnis = 0;
     if (lRZ.getText().equals("+")) {
       ergebnis = zahl1 + zahl2;
     } else if (lRZ.getText().equals("-")) {

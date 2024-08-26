@@ -1,6 +1,6 @@
 object FGUIForm_1: TFGUIForm
-  Left = 2036
-  Top = 226
+  Left = 946
+  Top = 183
   BorderIcons = [biSystemMenu]
   Caption = 'taschenrechner'
   ClientHeight = 461
