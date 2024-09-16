@@ -98,6 +98,10 @@ public class caesar1 extends JFrame {
 
   public void bVomGeheimtextzumKlartext_ActionPerformed(ActionEvent evt) {
     // TODO hier Quelltext einfügen
+    int key = jNumberField1.getInt();
+    String klartext = jTextArea2.getText();
+    String geheimtext = dEchiffriereCaesar(klartext, key);
+    jTextArea1.setText(geheimtext);
     
   } // end of bVomGeheimtextzumKlartext_ActionPerformed
   public String chiffriereCaesar(String kt, Integer s) 
@@ -113,6 +117,28 @@ public class caesar1 extends JFrame {
 
       if (ci > 90) { // Wenn >90 (Ascii für "Z") wird zum Anfang gesprungen
         ci = ci - 26;
+      }
+      
+      geheimtext = geheimtext + String.valueOf((char) ci); // Nummer wird wieder als char angehängt
+    }
+    
+
+    return geheimtext.replace("%", ""); // "%" wird aus Rückgabe entfernt, entsteht aus Leerzeichen
+  }
+
+  public String dEchiffriereCaesar(String kt, Integer s) 
+  { 
+    String geheimtext = "";
+    kt = kt.toUpperCase(); // Alles in Großbuchstaben
+
+    int ci; // Integer-Variable initialisiert
+
+    for (int i = 0; i < kt.length(); i++) { // Schleife für jeden char im Eingabetext
+      ci = kt.charAt(i); // char->Integer zuweisund generiert automatisch Ascii-Nummer des Zeichens
+      ci -= s; // Schlüssel wird addiert
+
+      if (ci < 41) { // Wenn >90 (Ascii für "Z") wird zum Anfang gesprungen
+        ci = ci + 26;
       }
       
       geheimtext = geheimtext + String.valueOf((char) ci); // Nummer wird wieder als char angehängt
