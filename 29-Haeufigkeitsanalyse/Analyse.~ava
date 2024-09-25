@@ -1,0 +1,52 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+
+/**
+ *
+ * Description
+ *
+ * @version 1.0 from 25.09.2024
+ * @author 
+ */
+
+public class Analyse extends JFrame {
+  // start attributes
+  private JLabel lHaeufigkeitsanalyse = new JLabel();
+  // end attributes
+  
+  public Analyse() { 
+    // Frame init
+    super();
+    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    int frameWidth = 300; 
+    int frameHeight = 300;
+    setSize(frameWidth, frameHeight);
+    Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (d.width - getSize().width) / 2;
+    int y = (d.height - getSize().height) / 2;
+    setLocation(x, y);
+    setTitle("Analyse");
+    setResizable(false);
+    Container cp = getContentPane();
+    cp.setLayout(null);
+    // start components
+    
+    lHaeufigkeitsanalyse.setBounds(8, 8, 249, 33);
+    lHaeufigkeitsanalyse.setFont(new Font("Dialog", Font.BOLD, 11));
+    lHaeufigkeitsanalyse.setText("Häufigkeitsanalyse");
+    cp.add(lHaeufigkeitsanalyse);
+    // end components
+    
+    setVisible(true);
+  } // end of public Analyse
+  
+  // start methods
+  
+  public static void main(String[] args) {
+    new Analyse();
+  } // end of main
+  
+  // end methods
+} // end of class Analyse
