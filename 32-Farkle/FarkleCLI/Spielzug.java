@@ -8,8 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Spielzug
 {
     int[] wuerfel;
-    int[] alte_wurfel;
-    int[] speicher_wurfel;
+    int[] alte_wuerfel;
     public Spielzug(Spieler pSpieler)
     {
         Spieler spieler = pSpieler;
@@ -19,7 +18,7 @@ public class Spielzug
     
     public void zug_eingeben(String eingabe) {
         if (eingabe.length()<6) {
-            alte_wurfel = wuerfel;
+            alte_wuerfel = wuerfel;
         }
         wuerfel = new int[6];
         for (int i=0; i<eingabe.length(); i++) {
@@ -33,9 +32,17 @@ public class Spielzug
     }
     
     public void berechnen() {
-        // wuerfelarray differenz
+        String rechen = "";
+        int[] rechen_wuerfel = wuerfel;
         for (int i=0; i<6; i++) {
-            int suchzahl = alte_wuerfel[
+            int suchzahl = alte_wuerfel[i];
+            for (int j=0; j<6; j++) {
+                if (rechen_wuerfel[j] = suchzahl) {
+                    rechen = rechen + suchzahl;
+                    rechen_wurfel[j] = 0;
+                }
+            }
         }
     }
+    System.out.println(rechen);
 }
