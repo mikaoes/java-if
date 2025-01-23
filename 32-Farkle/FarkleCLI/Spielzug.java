@@ -9,6 +9,7 @@ public class Spielzug
 {
     int[] wuerfel;
     int[] alte_wuerfel;
+    String rechen = "timim al echbert";
     public Spielzug(Spieler pSpieler)
     {
         Spieler spieler = pSpieler;
@@ -32,7 +33,7 @@ public class Spielzug
     }
     
     public void berechnen() {
-        String rechen = "";
+        rechen = "";
         int[] rechen_wuerfel = wuerfel;
         for (int i=0; i<6; i++) {
             int suchzahl = alte_wuerfel[i];
